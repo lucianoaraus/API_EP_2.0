@@ -7,6 +7,13 @@ router.get("/", (req, res) => {
   models.alumno
     .findAll({
       attributes: ["id", "nombre", "apellido", "legajo", "id_carrera"],
+      incluide: [
+        {
+          as: "carrera-relacionada",
+          model: models.carrera,
+          attributes: ["id", "nombre"],
+        },
+      ],
     })
     .then((alumnos) => res.send(alumnos))
     .catch(() => res.sendStatus(500));
