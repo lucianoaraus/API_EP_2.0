@@ -1,14 +1,16 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var carrerasRouter = require("./routes/carreras");
-var materiaRouter = require("./routes/materia");
-var alumnoRouter = require("./routes/alumno");
-var profesorRouter = require("./routes/profesor");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
-var app = express();
+// routes
+const carrerasRouter = require("./routes/carreras");
+const materiaRouter = require("./routes/materia");
+const alumnoRouter = require("./routes/alumno");
+const profesorRouter = require("./routes/profesor");
+
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -20,10 +22,30 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// endpoints
 app.use("/car", carrerasRouter);
 app.use("/mat", materiaRouter);
 app.use("/alu", alumnoRouter);
 app.use("/prof", profesorRouter);
+
+// swagger
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Universidad API",
+      version: "1.0.0",
+      description:
+        "App para los usuarios de la Universidad, para que puedan consultar carreras, materias, inscribirse y más.",
+    },
+  },
+  apis: ["swagger-spec.yaml"],
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,0 +1,313 @@
+tags:
+  - nombre: Alumnos
+    description: Endpoints relacionados con Alumnos
+  - nombre: Carreras
+    description: Endpoints relacionados con carreras
+  - nombre: Materias
+    description: Endpoints relacionados con materias
+  - nombre: Profesor
+    description: Endpoints relacionados con Profesor
+
+paths:
+  /car:
+    get:
+      summary: Obtiene todas las carreras
+      tags:
+        - Carreras
+      responses:
+        "200":
+          description: Lista de carreras obtenida exitosamente
+        "500":
+          description: Error al obtener las carreras
+
+    post:
+      summary: Crea una nueva carrera
+      tags:
+        - Carreras
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+              example:
+                nombre: Psicologia
+
+      responses:
+        "200":
+          description: Carrera creada exitosamente
+        "500":
+          description: Error al crear la carrera
+
+  /car/{id}:
+    get:
+      summary: Obtiene una carrera por ID
+      tags:
+        - Carreras
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: number
+          required: true
+          description: ID de la carrera a buscar
+      responses:
+        "200":
+          description: Carrera encontrada exitosamente
+        "404":
+          description: Carrera no encontrada
+        "500":
+          description: Error al buscar la carrera
+
+    delete:
+      summary: Elimina una carrera por ID
+      tags:
+        - Carreras
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: string
+          required: true
+          description: ID de la carrera a eliminar
+
+      responses:
+        "200":
+          description: Carrera eliminada exitosamente
+        "404":
+          description: Carrera no encontrada
+        "500":
+          description: Error al buscar o eliminar la carrera
+
+  /mat:
+    get:
+      summary: Obtiene todas las materias
+      tags:
+        - Materias
+      responses:
+        "200":
+          description: Lista de materias obtenida exitosamente
+        "500":
+          description: Error al obtener las materias
+
+    post:
+      summary: Crea una nueva materia
+      tags:
+        - Materias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                id_carrera:
+                  type: string
+              example:
+                nombre: Nombre de la materia
+                id_carrera: ID de la carrera
+
+      responses:
+        "200":
+          description: Materia creada exitosamente
+        "500":
+          description: Error al crear la materia
+
+  /mat/{id}:
+    get:
+      summary: Obtiene una materia por ID
+      tags:
+        - Materias
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: string
+          required: true
+          description: ID de la materia a buscar
+      responses:
+        "200":
+          description: Materia encontrada exitosamente
+        "404":
+          description: Materia no encontrada
+        "500":
+          description: Error al buscar la materia
+
+    delete:
+      summary: Elimina una materia por ID
+      tags:
+        - Materias
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: string
+          required: true
+          description: ID de la materia a eliminar
+
+      responses:
+        "200":
+          description: Materia eliminada exitosamente
+        "404":
+          description: Materia no encontrada
+        "500":
+          description: Error al buscar o eliminar la materia
+
+  /alu:
+    get:
+      summary: Obtiene todos los alumnos
+      tags:
+        - Alumnos
+      responses:
+        "200":
+          description: Lista de alumnos obtenida exitosamente
+        "500":
+          description: Error al obtener los alumnos
+
+    post:
+      summary: Crea un nuevo alumno
+      tags:
+        - Alumnos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                id_carrera:
+                  type: string
+              example:
+                nombre: Emma
+                apellido: Watson
+                legajo: 5
+                id_carrera: 1
+
+      responses:
+        "200":
+          description: Alumno creado exitosamente
+        "500":
+          description: Error al crear al alumno
+
+  /alu/{id}:
+    get:
+      summary: Obtiene un alumno por ID
+      tags:
+        - Alumnos
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: string
+          required: true
+          description: ID del alumno a buscar
+      responses:
+        "200":
+          description: Alumno encontrado exitosamente
+        "404":
+          description: Alumno no encontrado
+        "500":
+          description: Error al buscar al alumno
+
+    delete:
+      summary: Elimina un alumno por ID
+      tags:
+        - Alumnos
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: string
+          required: true
+          description: ID del alumno a eliminar
+
+      responses:
+        "200":
+          description: Alumno eliminado exitosamente
+        "404":
+          description: Alumno no encontrado
+        "500":
+          description: Error al buscar o eliminar al Alumno
+
+  /prof:
+    get:
+      summary: Obtiene todos los profesores
+      tags:
+        - Profesores
+      responses:
+        "200":
+          description: Lista de Profesores obtenida exitosamente
+        "500":
+          description: Error al obtener los Profesores
+
+    post:
+      summary: Crea un nuevo profesor
+      tags:
+        - Profesores
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                id_carrera:
+                  type: string
+              example:
+                nombre: Nombre del profesor
+                id_carrera: ID de la carrera
+
+      responses:
+        "200":
+          description: Profesor creado exitosamente
+        "500":
+          description: Error al crear al profesor
+
+  /prof/{id}:
+    get:
+      summary: Obtiene un profesor por ID
+      tags:
+        - Profesores
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: string
+          required: true
+          description: ID del profesor a buscar
+      responses:
+        "200":
+          description: Profesor encontrado exitosamente
+        "404":
+          description: Profesor no encontrado
+        "500":
+          description: Error al buscar al profesor
+
+    delete:
+      summary: Elimina un profesor por ID
+      tags:
+        - Profesores
+      parameters:
+        - in: path
+          nombre: id
+          schema:
+            type: string
+          required: true
+          description: ID del profesor a eliminar
+
+      responses:
+        "200":
+          description: Profesor eliminado exitosamente
+        "404":
+          description: Profesor no encontrado
+        "500":
+          description: Error al buscar o eliminar un profesor
